@@ -1,4 +1,4 @@
-name: Build VPN V2Ray APK
+name: Build VPN V2Ray arm64 APK
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build-debug-apk:
-    name: Build debug APKs
+    name: Build arm64-v8a debug APK
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -57,17 +57,17 @@ jobs:
             "https://github.com/2dust/AndroidLibXrayLite/releases/download/${CURRENT_TAG}/libv2ray.aar" \
             --output V2rayNG/app/libs/libv2ray.aar
 
-      - name: Build installable debug APKs
+      - name: Build installable arm64-v8a debug APK
         working-directory: V2rayNG
         run: |
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           chmod +x gradlew
-          ./gradlew assembleFdroidDebug --stacktrace
+          ./gradlew assembleFdroidDebug -PABI_FILTERS=arm64-v8a --stacktrace
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: VPNV2Ray-debug-APKs
-          path: V2rayNG/app/build/outputs/apk/fdroid/debug/*.apk
+          name: VPNV2Ray-arm64-v8a
+          path: V2rayNG/app/build/outputs/apk/fdroid/debug/*arm64-v8a*.apk
           if-no-files-found: error
           retention-days: 14

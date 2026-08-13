@@ -597,6 +597,11 @@ object AngConfigManager {
                 return SubscriptionUpdateResult(failureCount = 1)
             }
 
+            configText = EncryptedSubscriptionManager.decryptIfEncrypted(configText).orEmpty()
+            if (configText.isEmpty()) {
+                return SubscriptionUpdateResult(failureCount = 1)
+            }
+
             val count = parseConfigViaSub(configText, it.guid, false)
             if (count > 0) {
                 it.subscription.lastUpdated = System.currentTimeMillis()

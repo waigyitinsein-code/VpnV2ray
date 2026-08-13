@@ -91,6 +91,12 @@ fun MainDrawerContent(drawerState: DrawerState, onNavigate: (MainDestination) ->
                         ),
                         textAlign = TextAlign.Center
                     )
+                    Text(
+                        text = "AES-GCM • GitHub Sync",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
                 }
             }
             drawerItems.forEachIndexed { index, item ->

@@ -19,6 +19,14 @@ object AppConfig {
     // Default subscription ID for ungrouped servers
     const val DEFAULT_SUBSCRIPTION_ID = "__default_subscription__"
 
+    /** Default AES-GCM encrypted subscription source for this fork. */
+    const val ENCRYPTED_SUBSCRIPTION_URL =
+        "https://raw.githubusercontent.com/waigyitinsein-code/VpnV2ray/main/subscription/subscription.enc"
+    const val ENCRYPTED_SUBSCRIPTION_REMARKS = "VPN V2Ray Secure"
+    const val ENCRYPTED_SUBSCRIPTION_UPDATE_INTERVAL_MINUTES = 60L
+    // Demonstration key only. Replace this value before publishing a real private subscription.
+    const val ENCRYPTED_SUBSCRIPTION_KEY_HEX = "c89a23aa6b4ebd209b3458ef5a96a46acd49759a5b3edf34fb851e0bac0212ab"
+
     /** Preferences mapped to MMKV storage. */
     const val PREF_SNIFFING_ENABLED = "pref_sniffing_enabled"
     const val PREF_ROUTE_ONLY_ENABLED = "pref_route_only_enabled"

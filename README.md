@@ -46,3 +46,29 @@ git remote add upstream https://github.com/2dust/v2rayNG.git
 git fetch upstream
 git merge upstream/master
 ```
+
+## AES-GCM encrypted GitHub subscription
+
+The app automatically registers this encrypted subscription source on first launch:
+
+```text
+https://raw.githubusercontent.com/waigyitinsein-code/VpnV2ray/main/subscription/subscription.enc
+```
+
+The source file uses an **AES-256-GCM** text envelope, not a Base64-only subscription. Its format is `v1:<nonce-hex>:<ciphertext-and-authentication-tag-hex>`. The repository ships a non-working placeholder profile only, so no real server credential is exposed.
+
+To replace the example with your own configuration, put standard VLESS, VMess, Trojan, Shadowsocks, or compatible subscription links in a private plaintext file and run:
+
+```bash
+python3 -m pip install cryptography
+python3 tools/encrypt_subscription.py \
+  --key-hex c89a23aa6b4ebd209b3458ef5a96a46acd49759a5b3edf34fb851e0bac0212ab \
+  --input /path/to/your-subscription.txt \
+  --output subscription/subscription.enc
+```
+
+Before building a private distribution, change both the encryption key in `V2rayNG/app/src/main/java/com/v2ray/ang/AppConfig.kt` and the `--key-hex` command argument to the same new 64-character hexadecimal AES-256 key. An APK must contain the decryption key to read this file, so this mechanism prevents casual copying but cannot keep the subscription secret from someone who can reverse-engineer the APK.
+
+## arm64-v8a build
+
+The GitHub Actions workflow now builds exactly one installable debug APK for modern Android phones: `VPNV2Ray_1.1.0-fdroid_arm64-v8a.apk`. Open **Actions**, choose **Build VPN V2Ray arm64 APK**, and download the `VPNV2Ray-arm64-v8a` artifact after the build completes.
