@@ -38,7 +38,7 @@ jobs:
           yes | sdkmanager --licenses >/dev/null || true
           sdkmanager --install \
             "platform-tools" \
-            "platforms;android-37" \
+            "platforms;android-37.0" \
             "build-tools;37.0.0" \
             "ndk;29.0.14206865"
           echo "NDK_HOME=$ANDROID_HOME/ndk/29.0.14206865" >> "$GITHUB_ENV"
